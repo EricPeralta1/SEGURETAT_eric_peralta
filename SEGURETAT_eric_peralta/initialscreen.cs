@@ -17,9 +17,9 @@ namespace SEGURETAT_eric_peralta
             InitializeComponent();
         }
 
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        private void sortirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }
