@@ -22,13 +22,12 @@ namespace SEGURETAT_eric_peralta.MODELS
 
             usuaris = sentencia.ExecuteReader();
 
-            Bd.connexió.Close();
 
             if (usuaris.HasRows)
             {
                 usuaris.Read();
 
-                string passwordEncrypted = usuaris.GetString(5);
+                string passwordEncrypted = usuaris.GetString(4);
 
                 if (BCrypt.Net.BCrypt.EnhancedVerify(password, passwordEncrypted))
                 {
@@ -44,6 +43,7 @@ namespace SEGURETAT_eric_peralta.MODELS
                 MessageBox.Show("Usuari no trobat.");
             }
 
+            Bd.connexió.Close();
             usuaris.Close();
 
 

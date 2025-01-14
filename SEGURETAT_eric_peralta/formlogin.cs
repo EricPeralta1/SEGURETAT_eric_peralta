@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SEGURETAT_eric_peralta.MODELS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +30,7 @@ namespace SEGURETAT_eric_peralta
                 string email = emailTextBox.Text;
                 string contrasenya = passwordTextBox.Text;
 
-                if (email)
+                UsersBd.ckeckUsersBd(email, contrasenya);
             }
             else {
                 MessageBox.Show("Omple els camps, siusplau.");
