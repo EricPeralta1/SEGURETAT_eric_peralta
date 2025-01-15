@@ -30,21 +30,20 @@ namespace SEGURETAT_eric_peralta.MODELS
                 usuaris.Read();
 
                 string passwordEncrypted = usuaris.GetString(4);
+                string emailDb = usuaris.GetString(1);
                 MessageBox.Show(passwordEncrypted);
 
-
-                if (BCrypt.Net.BCrypt.EnhancedVerify(password, passwordEncrypted, HashType.SHA512))
-                {
-                    check = true;
-                    MessageBox.Show("Usuari trobat. Benvingut.");
-                }
-                else
-                {
-                    MessageBox.Show("Contrasenya incorrecta.");
-                }
-            }
-            else
-            {
+                if (emailDb.Equals(email, StringComparison.OrdinalIgnoreCase)) {
+                    if (BCrypt.Net.BCrypt.EnhancedVerify(password, passwordEncrypted, HashType.SHA512))
+                    {
+                        check = true;
+                        MessageBox.Show("Usuari trobat. Benvingut.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contrasenya incorrecta.");
+                    }
+                } else {
                 MessageBox.Show("Usuari no trobat.");
             }
 
