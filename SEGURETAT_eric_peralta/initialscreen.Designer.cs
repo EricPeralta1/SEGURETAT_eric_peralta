@@ -77,6 +77,7 @@
             this.usuarisToolStripMenuItem.Name = "usuarisToolStripMenuItem";
             this.usuarisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuarisToolStripMenuItem.Text = "Usuaris";
+            this.usuarisToolStripMenuItem.Click += new System.EventHandler(this.usuarisToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

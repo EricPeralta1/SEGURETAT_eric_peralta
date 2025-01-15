@@ -21,5 +21,12 @@ namespace SEGURETAT_eric_peralta
         {
             Application.Exit();
         }
+
+        private void usuarisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formUsuaris formUsuaris = new formUsuaris();
+            formUsuaris.ShowDialog();
+            this.Hide();
+        }
     }
 }

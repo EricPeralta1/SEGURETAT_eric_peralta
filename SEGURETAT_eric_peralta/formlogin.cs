@@ -13,9 +13,13 @@ namespace SEGURETAT_eric_peralta
 {
     public partial class formlogin : Form
     {
+        initialscreen f = new initialscreen();
+
         public formlogin()
         {
             InitializeComponent();
+            f.Enabled = false;
+            f.Show();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -30,7 +34,13 @@ namespace SEGURETAT_eric_peralta
                 string email = emailTextBox.Text;
                 string contrasenya = passwordTextBox.Text;
 
-                UsersBd.ckeckUsersBd(email, contrasenya);
+                bool check = UsersBd.ckeckUsersBd(email, contrasenya);
+
+                if (check == true) {
+                    f.Enabled = true;
+                    this.Hide();
+                }
+
             }
             else {
                 MessageBox.Show("Omple els camps, siusplau.");

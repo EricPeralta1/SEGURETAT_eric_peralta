@@ -68,6 +68,12 @@
     <Compile Include="formlogin.Designer.cs">
       <DependentUpon>formlogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="formUsuaris.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUsuaris.Designer.cs">
+      <DependentUpon>formUsuaris.cs</DependentUpon>
+    </Compile>
     <Compile Include="initialscreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formlogin.resx">
       <DependentUpon>formlogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formUsuaris.resx">
+      <DependentUpon>formUsuaris.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="initialscreen.resx">
       <DependentUpon>initialscreen.cs</DependentUpon>
@@ -109,6 +118,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="RESOURCES\anadir.png" />
+    <None Include="RESOURCES\borrar.png" />
     <Content Include="RESOURCES\exiticon.png" />
     <None Include="RESOURCES\exiticon1.png" />
     <Content Include="RESOURCES\initialscreenbackground.jpg" />
