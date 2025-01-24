@@ -123,6 +123,7 @@
             this.dataGridViewUsuaris.AllowUserToDeleteRows = false;
             this.dataGridViewUsuaris.AllowUserToResizeColumns = false;
             this.dataGridViewUsuaris.AllowUserToResizeRows = false;
+            this.dataGridViewUsuaris.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataGridViewUsuaris.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUsuaris.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -133,8 +134,11 @@
             this.Rol});
             this.dataGridViewUsuaris.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dataGridViewUsuaris.Location = new System.Drawing.Point(0, 28);
+            this.dataGridViewUsuaris.MultiSelect = false;
             this.dataGridViewUsuaris.Name = "dataGridViewUsuaris";
+            this.dataGridViewUsuaris.ReadOnly = true;
             this.dataGridViewUsuaris.RowHeadersVisible = false;
+            this.dataGridViewUsuaris.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewUsuaris.Size = new System.Drawing.Size(985, 422);
             this.dataGridViewUsuaris.TabIndex = 1;
             // 

@@ -23,12 +23,30 @@ namespace SEGURETAT_eric_peralta
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            formUsuariNou f = new formUsuariNou();
+            f.ShowDialog();
 
+            DataTable dt = UsersBd.fillDataGridView();
+            dataGridViewUsuaris.DataSource = dt;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            if (dataGridViewUsuaris.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewUsuaris.SelectedRows[0];
 
+                string email = selectedRow.Cells["Email"].Value.ToString(); 
+
+                UsersBd.Delete(email);
+
+                DataTable dt = UsersBd.fillDataGridView();
+                dataGridViewUsuaris.DataSource = dt;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona una fila.");
+            }
         }
 
         private void sortirButton_Click(object sender, EventArgs e)
