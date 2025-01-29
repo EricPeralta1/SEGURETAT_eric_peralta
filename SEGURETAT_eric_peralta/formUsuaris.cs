@@ -14,15 +14,25 @@ namespace SEGURETAT_eric_peralta
     public partial class formUsuaris : Form
     {
 
-        /// <summary>
-        /// Prueba x
-        /// </summary>
         public formUsuaris()
         {
             InitializeComponent();
 
-            DataTable dt = UsersBd.fillDataGridView();
-            dataGridViewUsuaris.DataSource = dt;
+            dataGridViewUsuaris.Rows.Clear();
+
+            DataTable dt = UsersBd.GetUsers();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int rowIndex = dataGridViewUsuaris.Rows.Add();
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Id"].Value = row["id"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Correu"].Value = row["correu"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Nom"].Value = row["nom"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Cognoms"].Value = row["cognoms"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Actiu"].Value = row["actiu"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Rol"].Value = row["rol_nom"];
+
+            }
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -30,9 +40,23 @@ namespace SEGURETAT_eric_peralta
             formUsuariNou f = new formUsuariNou();
             f.ShowDialog();
 
-            DataTable dt = UsersBd.fillDataGridView();
-            dataGridViewUsuaris.DataSource = dt;
+            dataGridViewUsuaris.Rows.Clear();
+
+            DataTable dt = UsersBd.GetUsers();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int rowIndex = dataGridViewUsuaris.Rows.Add();
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Id"].Value = row["id"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Correu"].Value = row["correu"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Nom"].Value = row["nom"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Cognoms"].Value = row["cognoms"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Actiu"].Value = row["actiu"];
+                dataGridViewUsuaris.Rows[rowIndex].Cells["Rol"].Value = row["rol_nom"];
+
+            }
         }
+
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -40,12 +64,25 @@ namespace SEGURETAT_eric_peralta
             {
                 DataGridViewRow selectedRow = dataGridViewUsuaris.SelectedRows[0];
 
-                string email = selectedRow.Cells["Email"].Value.ToString(); 
+                int id = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
 
-                UsersBd.Delete(email);
+                UsersBd.Delete(id);
 
-                DataTable dt = UsersBd.fillDataGridView();
-                dataGridViewUsuaris.DataSource = dt;
+                dataGridViewUsuaris.Rows.Clear();
+
+                DataTable dt = UsersBd.GetUsers();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    int rowIndex = dataGridViewUsuaris.Rows.Add();
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Id"].Value = row["id"];
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Correu"].Value = row["correu"];
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Nom"].Value = row["nom"];
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Cognoms"].Value = row["cognoms"];
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Actiu"].Value = row["actiu"];
+                    dataGridViewUsuaris.Rows[rowIndex].Cells["Rol"].Value = row["rol_nom"];
+
+                }
             }
             else
             {
@@ -55,7 +92,7 @@ namespace SEGURETAT_eric_peralta
 
         private void sortirButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
     }
 }

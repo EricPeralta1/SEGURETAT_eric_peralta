@@ -20,7 +20,8 @@ namespace SEGURETAT_eric_peralta.MODELS
             bool check = false;
 
             sentencia.Connection = Bd.connexió;
-            sentencia.CommandText = "select * from usuaris";
+            sentencia.CommandText = "select * from usuaris where correu = @Email";
+            sentencia.Parameters.AddWithValue("@email", email);
 
             Bd.connexió.Open();
 
@@ -32,11 +33,8 @@ namespace SEGURETAT_eric_peralta.MODELS
                 usuaris.Read();
 
                 string passwordEncrypted = usuaris.GetString(4);
-                string emailDb = usuaris.GetString(1);
-                MessageBox.Show(passwordEncrypted);
 
-                if (emailDb.Equals(email, StringComparison.OrdinalIgnoreCase))
-                {
+                
                     if (BCrypt.Net.BCrypt.EnhancedVerify(password, passwordEncrypted, HashType.SHA512))
                     {
                         check = true;
@@ -46,30 +44,31 @@ namespace SEGURETAT_eric_peralta.MODELS
                     {
                         MessageBox.Show("Contrasenya incorrecta.");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Usuari no trobat.");
-                }
+            }
+            else
+            {
+               MessageBox.Show("Usuari no trobat.");
+            }
 
                 Bd.connexió.Close();
                 usuaris.Close();
 
-            }
             return check;
         }
 
-        public static void Insert(String email, String nom, String cognoms, String contrasenya, bool actiu) {
+        public static void Insert(String email, String nom, String cognoms, String contrasenya, bool actiu, int roleId) {
             SqlCommand sentencia = new SqlCommand();
 
             sentencia.Connection = Bd.connexió;
-            sentencia.CommandText = "insert into usuaris values (@email, @nom, @cognoms, @contrasenya, @actiu)";
+            sentencia.CommandText = "insert into usuaris values (@email, @nom, @cognoms, @contrasenya, @actiu, @Role)";
             sentencia.Parameters.Clear();
             sentencia.Parameters.AddWithValue("@email", email);
             sentencia.Parameters.AddWithValue("@nom", nom);
             sentencia.Parameters.AddWithValue("@cognoms", cognoms);
-            sentencia.Parameters.AddWithValue("@contrasenya", contrasenya);
+            sentencia.Parameters.AddWithValue("@contrasenya", BCrypt.Net.BCrypt.EnhancedHashPassword(contrasenya, BCrypt.Net.HashType.SHA512)
+);
             sentencia.Parameters.AddWithValue("@actiu", actiu);
+            sentencia.Parameters.AddWithValue("@Role", roleId);
 
             Bd.connexió.Open();
 
@@ -79,16 +78,16 @@ namespace SEGURETAT_eric_peralta.MODELS
 
         }
 
-        public static void Delete(string email) {
+        public static void Delete(int id) {
             DialogResult dialogResult = MessageBox.Show("Estàs segur que vols borrar aquest usuari? Es perdrà per sempre!", "Atenció", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 SqlCommand sentencia = new SqlCommand();
 
                 sentencia.Connection = Bd.connexió;
-                sentencia.CommandText = "delete from usuaris where correu='@email'";
+                sentencia.CommandText = "delete from usuaris where id=@id";
                 sentencia.Parameters.Clear();
-                sentencia.Parameters.AddWithValue("@email", email);
+                sentencia.Parameters.AddWithValue("@id", id);
 
                 Bd.connexió.Open();
 
@@ -102,45 +101,46 @@ namespace SEGURETAT_eric_peralta.MODELS
             }
         }
 
-        public static DataTable fillDataGridView() {
-            SqlCommand sentencia = new SqlCommand();
-            SqlDataReader data;
-            DataTable taula = new DataTable();
+        public static DataTable GetUsers()
+        {
+            DataTable dt = new DataTable();
 
-            sentencia.Connection = Bd.connexió;
-            sentencia.CommandText = "select * from usuaris";
+            SqlCommand command = new SqlCommand(@"
+      SELECT u.id, u.correu, u.nom, u.cognoms, u.actiu, r.nom as rol_nom
+      FROM usuaris u
+      JOIN rols r ON u.rols_id = r.id", Bd.connexió);
 
-            Bd.connexió.Open();
+            try
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading users: {ex.Message}");
+            }
 
-            data = sentencia.ExecuteReader();
-
-            taula.Load(data);
-
-            Bd.connexió.Close();
-            return taula;
+            return dt;
         }
 
-        public static List<string> GetRoles()
+        public static DataTable GetRoles()
         {
             SqlCommand sentencia = new SqlCommand();
             SqlDataReader data;
-            List<string> roles = new List<string>();
+            DataTable rolesTable = new DataTable();
 
             sentencia.Connection = Bd.connexió;
-            sentencia.CommandText = "select nombre from rols";
+            sentencia.CommandText = "select * from rols";
 
             Bd.connexió.Open();
 
             data = sentencia.ExecuteReader();
+            rolesTable.Load(data);
 
-            while (data.Read())
-            {
-                roles.Add(data.GetString(1)); 
-            }
 
             Bd.connexió.Close();
 
-            return roles;
+            return rolesTable;
         }
     }
 }
