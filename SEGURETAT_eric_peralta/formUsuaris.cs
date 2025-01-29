@@ -15,7 +15,7 @@ namespace SEGURETAT_eric_peralta
     {
 
         /// <summary>
-        /// Prueba
+        /// Prueba x
         /// </summary>
         public formUsuaris()
         {
