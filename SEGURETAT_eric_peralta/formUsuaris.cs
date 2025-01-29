@@ -13,6 +13,10 @@ namespace SEGURETAT_eric_peralta
 {
     public partial class formUsuaris : Form
     {
+
+        /// <summary>
+        /// Prueba
+        /// </summary>
         public formUsuaris()
         {
             InitializeComponent();
