@@ -15,6 +15,9 @@ namespace SEGURETAT_eric_peralta
     {
         initialscreen f = new initialscreen();
 
+        /// <summary>
+        /// Deshabilita el form de initialscreen, hasta iniciar sesión con un usuario de la BD.
+        /// </summary>
         public formlogin()
         {
             InitializeComponent();
@@ -27,6 +30,13 @@ namespace SEGURETAT_eric_peralta
             Application.Exit();
         }
 
+
+        /// <summary>
+        /// Al aceptar, recoge los datos de las textBox, y las compara con los usuarios existentes de la DB. Si el check es true, rehabilita el form.
+        /// En caso contrario, el usuario introducido serà erròneo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void acceptButton_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(emailTextBox.Text) || !String.IsNullOrEmpty(passwordTextBox.Text))

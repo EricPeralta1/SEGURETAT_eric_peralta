@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace SEGURETAT_eric_peralta
 {
+    /// <summary>
+    /// Form inicial. Pantalla de eleccion entre salir, roles y usuarios.
+    /// </summary>
     public partial class initialscreen : Form
     {
         public initialscreen()
@@ -22,6 +25,11 @@ namespace SEGURETAT_eric_peralta
             Application.Exit();
         }
 
+        /// <summary>
+        /// Genera el form de usuarios.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void usuarisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             formUsuaris formUsuaris = new formUsuaris();

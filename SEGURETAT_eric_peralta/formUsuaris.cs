@@ -13,7 +13,9 @@ namespace SEGURETAT_eric_peralta
 {
     public partial class formUsuaris : Form
     {
-
+        /// <summary>
+        /// Al generar el form, rellena el dataGrid con los usuarios existentes en la DB.
+        /// </summary>
         public formUsuaris()
         {
             InitializeComponent();
@@ -35,6 +37,11 @@ namespace SEGURETAT_eric_peralta
             }
         }
 
+        /// <summary>
+        /// Abre el form de creación de usuarios. Al acabar, limpia y actualiza el datagrid para introducir los datos nuevos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addButton_Click(object sender, EventArgs e)
         {
             formUsuariNou f = new formUsuariNou();
@@ -57,7 +64,11 @@ namespace SEGURETAT_eric_peralta
             }
         }
 
-
+        /// <summary>
+        /// Borra el usuario elegido en el dataGrid mediante un delete en la DB. Luego, actualiza el dataGrid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
             if (dataGridViewUsuaris.SelectedRows.Count > 0)
@@ -90,6 +101,11 @@ namespace SEGURETAT_eric_peralta
             }
         }
 
+        /// <summary>
+        /// Cierra el form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sortirButton_Click(object sender, EventArgs e)
         {
             this.Close();
